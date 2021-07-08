@@ -24,24 +24,24 @@ class studentRequest extends FormRequest
     public function rules()
     {
         return [
-            'regno' => 'required|students:unique',
+            'regno' => 'required|unique:students',
             'FirstName' => 'required',
             'MiddleName' => '',
             'LastName' => 'required',
             'gender' => 'required',
-            'Faculty' => 'required',
+            'faculty' => 'required',
             'level' => 'required',
             'course' => 'required',
             'dateofbirth',
-            'parentname',
-            'parentoccupation',
-            'parentcontact',
-            'StreetAddress',
-            'bloodgroup',
-            'PChallenge',
+            'parentname' => 'required',
+            'parentoccupation' => 'required',
+            'parentcontact' => 'required',
+            'StreetAddress' => 'required',
+            'bloodgroup' => 'required',
+            'PChallenge' => 'required',
             'alias',
             'indexNo',
-            'genotype',
+            'genotype' => 'required',
             'DOC',
             'state',
             'ward',
@@ -59,6 +59,13 @@ class studentRequest extends FormRequest
             'Faculty.required' => 'Faculty Must be Provided',
             'level.required' => 'Level must be provided',
             'course.required' => 'Course of Study must be provided',
+            'parentname' => 'Parent name is required',
+            'parentoccupation' => 'Parent\'s Occupation is required',
+            'parentcontact' => 'Parent\'s contact is required',
+            'StreetAddress' => 'Address Must be provided',
+            'bloodgroup' => 'Blood group required',
+            'PChallenge' => 'Phyical challenge must be NIL or provided',
+
         ];
     }
 }

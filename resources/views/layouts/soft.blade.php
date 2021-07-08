@@ -76,7 +76,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  " href="../pages/billing.html">
-                            <div style="background-image: url('assets/img/finances.png'); background-size:contain;"
+                            <div style="background-image: url('/assets/img/finances.png'); background-size:contain;"
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             </div>
                             <span class="nav-link-text ms-1">Payments
@@ -86,7 +86,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  " href="/reports">
-                            <div style="background-image: url('assets/img/reports.png'); background-size:contain;"
+                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 
                             </div>
