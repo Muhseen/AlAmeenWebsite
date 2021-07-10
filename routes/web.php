@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\StudentController;
-use App\Models\StatesAndLgas;
 use GuzzleHttp\Psr7\Request;
+use App\Models\StatesAndLgas;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProgrammesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +37,8 @@ Route::resource('/Students', StudentController::class);
 //reports Controller
 Route::view('/reports', 'reports.index');
 Route::get('/reports/owing', [App\Http\Controllers\reportController::class, 'getOwingStudents']);
+
+//programmes Controller;
+
+Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
+Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);

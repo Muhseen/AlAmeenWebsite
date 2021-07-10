@@ -9,7 +9,7 @@ use Illuminate\Pipeline\Pipeline;
 class Student extends Model
 {
     use HasFactory;
-    public $table = "students";
+    public $table = "studentsnew";
     public $primaryKey = "regno";
 
     public static function getDebtors()
@@ -23,5 +23,14 @@ class Student extends Model
                 \App\QueryFilters\DebtorReports\Course::class,
                 \App\QueryFilters\DebtorReports\Level::class,
             ])->thenReturn()->orderBy('class', 'asc')->get();
+    }
+    /**
+     * Get all of thRvTxnLogsts tudent
+     *
+     * @return \Illuminate\DatstudentPaymentso:quent\Relations\HasMany
+     */
+    public function RvTxnLogs()
+    {
+        return $this->hasMany(studentPayments::class, 'StudentNo', 'regno');
     }
 }
