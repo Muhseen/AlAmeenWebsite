@@ -11,26 +11,33 @@ class Student extends Model
     use HasFactory;
     public $table = "studentsnew";
     public $primaryKey = "regno";
-
+    public $timestamps   = false;
     public static function getDebtors()
     {
 
-        return $owingStudents = app(Pipeline::class)
+        return app(Pipeline::class)
             ->send(Student::query())
             ->through([
                 \App\QueryFilters\DebtorReports\Owing::class,
                 \App\QueryFilters\DebtorReports\Faculty::class,
                 \App\QueryFilters\DebtorReports\Course::class,
                 \App\QueryFilters\DebtorReports\Level::class,
-            ])->thenReturn()->orderBy('class', 'asc')->get();
+            ])->thenReturn()->orderBy('level', 'asc')->orderBy('course')->get();
     }
     /**
      * Get all of thRvTxnLogsts tudent
      *
      * @return \Illuminate\DatstudentPaymentso:quent\Relations\HasMany
      */
-    public function RvTxnLogs()
+    public function payments()
     {
-        return $this->hasMany(studentPayments::class, 'StudentNo', 'regno');
+        return $this->hasMany(studentPayments::class, 'StudentNO', 'regno');
+    }
+    public function getFullnameAttribute()
+    {
+        if ($this->MiddleName != "") {
+            return $this->FirstName . " " . $this->MiddleName . " " . $this->LastName;
+        }
+        return $this->FirstName . " " . $this->LastName;
     }
 }

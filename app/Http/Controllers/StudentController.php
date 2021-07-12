@@ -26,4 +26,8 @@ class StudentController extends Controller
         $values = $request->validated();
         $student = (new Student)->fill($values)->save();
     }
+    public function getStudent(Request $request)
+    {
+        return Student::where('regno', $request->regno)->firstOrFail();
+    }
 }
