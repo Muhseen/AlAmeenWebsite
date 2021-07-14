@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountsReceivableLogs;
 use App\Models\Student;
+use App\Models\studentledger;
 use App\Models\studentPayments;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
@@ -59,6 +61,67 @@ class reportController extends Controller
             ->withFaculties($faculties)
             ->withCourses($courses)
             ->withLevels($levels);
+    }
+    public function studentLedger(Request $request)
+    {
+        $payments = studentPayments::where('studentno', $request->regno)->get();
+        $charges = AccountsReceivableLogs::where('studentno', $request->regno)->get();
+        $student = Student::find($request->regno);
+        $report = collect();
+        $counter = 0;
+        foreach ($payments as $p) {
+            $counter++;
+            $rRow = new studentledger();
+            $rRow->txndate = $p->Txndate;
+            $rRow->StudentNo = $p->StudentNo;
+            $rRow->Studentname = $p->Payer;
+            $rRow->Description = $p->Description;
+            $rRow->amountcr = $p->Amount;
+            $rRow->amountdb = 0;
+            $report->put($counter, $rRow);
+        }
+        foreach ($charges as $c) {
+            $counter++;
+            $rRow = new studentledger();
+            $rRow->txndate = $c->txndate;
+            $rRow->StudentNo = $c->StudentNo;
+            $rRow->Studentname = $c->Payee;
+            $rRow->Description = $c->Description;
+            $rRow->amountcr = 0;
+            $rRow->amountdb = $c->amount;
+            $report->put($counter, $rRow);
+        }
+        $report = $report->sortBy('txndate');
+        $balance = 0;
+        $table = " <div class='card  text-center card-header'>
+           <b> Name: $student->fullname<br>
+            Faculty: $student->faculty    
+            , Course: $student->course    
+            , Level: $student->level <br>
+            Student Ledger
+            </b>    
+        </div>
+        <table class= 'table table-responsive table-striped table-dark table-bordered'>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Charges</th>
+            <th>Payments</th>
+            <th>Balance</th>
+        </tr>";
+        foreach ($report as $r) {
+            $balance += $r->amountcr == 0 ? $r->amountdb : $r->amountcr;
+            $table .= "<tr>
+             <td>" . ($r->txndate ?? "NIL") . "</td> 
+             <td>" . $r->Description . "</td> 
+             <td  style='text-align:right;'>" . $this->formatNumber($r->amountdb) . "</td> 
+             <td style='text-align:right;'>" . $this->formatNumber($r->amountcr) . "</td> 
+             <td style='text-align:right;'>   " . $this->formatNumber($balance) . "</td> 
+             </tr>";
+        }
+        $table .= "</table>";
+        return view('reports.studentLedger')
+            ->withTable($table);
     }
     public function formatNumber($number)
     {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pipeline\Pipeline;
+use App\Models\AccountsReceivableLogs;
 
 class Student extends Model
 {
@@ -24,11 +25,14 @@ class Student extends Model
                 \App\QueryFilters\DebtorReports\Level::class,
             ])->thenReturn()->orderBy('level', 'asc')->orderBy('course')->get();
     }
-    /**
-     * Get all of thRvTxnLogsts tudent
-     *
-     * @return \Illuminate\DatstudentPaymentso:quent\Relations\HasMany
-     */
+    public function ARL()
+    {
+        return $this->hasOne(
+            AccountsReceivablelogs::class,
+            'studentno',
+            'regno'
+        );
+    }
     public function payments()
     {
         return $this->hasMany(studentPayments::class, 'StudentNO', 'regno');

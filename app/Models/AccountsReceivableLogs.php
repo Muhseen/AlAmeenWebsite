@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountsReceivableLogs extends Model
 {
-    /* Get the user that owns the AccountsReceivableLogs
-         *
-         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-         */
-    public function user()
+    public $table = "accountreceivablelog";
+    public $timestamps = false;
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Student::class, 'regno', 'regno');
+        return $this->belongsTo(User::class, 'studentno', 'regno');
     }
 }

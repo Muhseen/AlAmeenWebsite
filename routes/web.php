@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProgrammesController;
+use App\Http\Controllers\reportController;
 use App\Http\Controllers\StudentPaymentsController;
 
 /*
@@ -41,7 +42,7 @@ Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
 //reports Controller
 Route::view('/reports', 'reports.index');
 Route::get('/reports/owing', [App\Http\Controllers\reportController::class, 'getOwingStudents']);
-
+Route::get('/studentLedger', [reportController::class, 'studentLedger']);
 //Student Controller
 Route::resource('/Students', StudentController::class);
 Route::get('/getStudent', [StudentController::class, 'getStudent']);
