@@ -43,6 +43,7 @@ Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
 Route::view('/reports', 'reports.index');
 Route::get('/reports/owing', [App\Http\Controllers\reportController::class, 'getOwingStudents']);
 Route::get('/studentLedger', [reportController::class, 'studentLedger']);
+Route::get('/reports/OwingParticularFee', [reportController::class, 'owingParticularFee']);
 //Student Controller
 Route::resource('/Students', StudentController::class);
 Route::get('/getStudent', [StudentController::class, 'getStudent']);

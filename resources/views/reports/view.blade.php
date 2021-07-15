@@ -7,6 +7,7 @@
             <div class=" form-group col-lg-5 col-md-4 col-sm-6 col-xs-12">
                 <lable>Faculty</lable>
                 <select name="faculty" id="cboFaculty" class="form-select">
+                    <option value="all">All Faculties</option>
                     @foreach ($faculties as $faculty)
                     <option value="{{$faculty->faculty}}">{{$faculty->faculty}}</option>
                     @endforeach
