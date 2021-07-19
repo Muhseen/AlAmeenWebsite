@@ -93,7 +93,7 @@
                             <span class="nav-link-text ms-1">Reports</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link  " href="../pages/rtl.html">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -122,7 +122,7 @@
                             </div>
                             <span class="nav-link-text ms-1">RTL</span>
                         </a>
-                    </li>
+                    </li>-->
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                             Account pages
@@ -159,33 +159,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  " href="../pages/sign-in.html">
-                            <div
-                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <title>document</title>
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
-                                            fill-rule="nonzero">
-                                            <g transform="translate(1716.000000, 291.000000)">
-                                                <g transform="translate(154.000000, 300.000000)">
-                                                    <path class="color-background opacity-6"
-                                                        d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
-                                                    </path>
-                                                    <path class="color-background"
-                                                        d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                                                    </path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </div>
-                            <span class="nav-link-text ms-1">Sign In</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link  " href="../pages/sign-up.html">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -215,7 +188,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <span class="nav-link-text ms-1">Sign Up</span>
+                            <span class="nav-link-text ms-1">Log out</span>
                         </a>
                     </li>
                 </ul>
@@ -274,12 +247,6 @@
                                     href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @endif
-
-                            @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                            @endif
                             @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -308,12 +275,12 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item px-3 d-flex align-items-center">
+                            <!--<li class="nav-item px-3 d-flex align-items-center">
                                 <a href="javascript:;" class="nav-link text-body p-0">
                                     <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                                 </a>
                             </li>
-                            <!--<li class="nav-item dropdown pe-2 d-flex align-items-center">
+                            <li class="nav-item dropdown pe-2 d-flex align-items-center">
                                 <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-bell cursor-pointer"></i>
@@ -412,7 +379,7 @@
                 @yield('content')
             </div>
         </main>
-        <div class="fixed-plugin">
+        <!--  <div class="fixed-plugin">
             <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
                 <i class="fa fa-cog py-2"> </i>
             </a>
@@ -427,83 +394,76 @@
                             <i class="fa fa-close"></i>
                         </button>
                     </div>
-                    <!-- End Toggle Button -->
-                </div>
-                <hr class="horizontal dark my-1" />
-                <div class="card-body pt-sm-3 pt-0">
-                    <!-- Sidebar Backgrounds -->
-                    <div>
-                        <h6 class="mb-0">Sidebar Colors</h6>
-                    </div>
-                    <a href="javascript:void(0)" class="switch-trigger background-color">
-                        <div class="badge-colors my-2 text-start">
-                            <span class="badge filter bg-gradient-primary active" data-color="primary"
-                                onclick="sidebarColor(this)"></span>
-                            <span class="badge filter bg-gradient-dark" data-color="dark"
-                                onclick="sidebarColor(this)"></span>
-                            <span class="badge filter bg-gradient-info" data-color="info"
-                                onclick="sidebarColor(this)"></span>
-                            <span class="badge filter bg-gradient-success" data-color="success"
-                                onclick="sidebarColor(this)"></span>
-                            <span class="badge filter bg-gradient-warning" data-color="warning"
-                                onclick="sidebarColor(this)"></span>
-                            <span class="badge filter bg-gradient-danger" data-color="danger"
-                                onclick="sidebarColor(this)"></span>
-                        </div>
-                    </a>
-                    <!-- Sidenav Type -->
-                    <div class="mt-3">
-                        <h6 class="mb-0">Sidenav Type</h6>
-                        <p class="text-sm">
-                            Choose between 2 different sidenav types.
-                        </p>
-                    </div>
-                    <div class="d-flex">
-                        <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent"
-                            onclick="sidebarType(this)">
-                            Transparent
-                        </button>
-                        <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white"
-                            onclick="sidebarType(this)">
-                            White
-                        </button>
-                    </div>
-                    <p class="text-sm d-xl-none d-block mt-2">
-                        You can change the sidenav type just on desktop view.
-                    </p>
-                    <!-- Navbar Fixed -->
-                    <div class="mt-3">
-                        <h6 class="mb-0">Navbar Fixed</h6>
-                    </div>
-                    <div class="form-check form-switch ps-0">
-                        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
-                            onclick="navbarFixed(this)" />
-                    </div>
-                    <hr class="horizontal dark my-sm-4" />
-                    <a class="btn bg-gradient-dark w-100"
-                        href="https://www.creative-tim.com/product/soft-ui-dashboard-pro">Free Download</a>
-                    <a class="btn btn-outline-dark w-100"
-                        href="https://www.creative-tim.com/learning-lab/bootstrap/license/soft-ui-dashboard">View
-                        documentation</a>
-                    <div class="w-100 text-center">
-                        <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard"
-                            data-icon="octicon-star" data-size="large" data-show-count="true"
-                            aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
-                        <h6 class="mt-3">Thank you for sharing!</h6>
-                        <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
-                            class="btn btn-dark mb-0 me-2" target="_blank">
-                            <i class="fab fa-twitter me-1" aria-hidden="true"></i>
-                            Tweet
-                        </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard"
-                            class="btn btn-dark mb-0 me-2" target="_blank">
-                            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i>
-                            Share
-                        </a>
-                    </div>
-                </div>
-            </div>
+                    <!-- End Toggle Button        </div>-->
+        <!--<hr class="horizontal dark my-1" />
+        <div class="card-body pt-sm-3 pt-0">
+            <!-- Sidebar Backgrounds -->
+        <!--<div>
+            <h6 class="mb-0">Sidebar Colors</h6>
         </div>
+        <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors my-2 text-start">
+                <span class="badge filter bg-gradient-primary active" data-color="primary"
+                    onclick="sidebarColor(this)"></span>
+                <span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span>
+                <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+                <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+                <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+                <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+            </div>
+        </a>
+        <!-- Sidenav Type -->
+        <!--<div class="mt-3">
+            <h6 class="mb-0">Sidenav Type</h6>
+            <p class="text-sm">
+                Choose between 2 different sidenav types.
+            </p>
+        </div>
+        <div class="d-flex">
+            <button class="btn bg-gradient-primary w-100 px-3 mb-2 active" data-class="bg-transparent"
+                onclick="sidebarType(this)">
+                Transparent
+            </button>
+            <button class="btn bg-gradient-primary w-100 px-3 mb-2 ms-2" data-class="bg-white"
+                onclick="sidebarType(this)">
+                White
+            </button>
+        </div>
+        <p class="text-sm d-xl-none d-block mt-2">
+            You can change the sidenav type just on desktop view.
+        </p>
+        <!-- Navbar Fixed -->
+        <!--<div class="mt-3">
+            <h6 class="mb-0">Navbar Fixed</h6>
+        </div>
+        <div class="form-check form-switch ps-0">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)" />
+        </div>
+        <hr class="horizontal dark my-sm-4" />
+        <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro">Free
+            Download</a>
+        <a class="btn btn-outline-dark w-100"
+            href="https://www.creative-tim.com/learning-lab/bootstrap/license/soft-ui-dashboard">View
+            documentation</a>
+        <div class="w-100 text-center">
+            <a class="github-button" href="https://github.com/creativetimofficial/soft-ui-dashboard"
+                data-icon="octicon-star" data-size="large" data-show-count="true"
+                aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub">Star</a>
+            <h6 class="mt-3">Thank you for sharing!</h6>
+            <a href="https://twitter.com/intent/tweet?text=Check%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
+                class="btn btn-dark mb-0 me-2" target="_blank">
+                <i class="fab fa-twitter me-1" aria-hidden="true"></i>
+                Tweet
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/soft-ui-dashboard"
+                class="btn btn-dark mb-0 me-2" target="_blank">
+                <i class="fab fa-facebook-square me-1" aria-hidden="true"></i>
+                Share
+            </a>
+        </div>
+        </div>
+        </div>
+        </div>-->
         <!--   Core JS Files   -->
         <script src="../assets/js/core/popper.min.js"></script>
         <script src="../assets/js/core/bootstrap.min.js"></script>

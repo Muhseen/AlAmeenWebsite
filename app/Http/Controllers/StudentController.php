@@ -16,15 +16,20 @@ class StudentController extends Controller
     }
     public function create()
     {
+        $faculties = cache('faculties');
+        $levels = cache('levels');
+        $courses = cache('courses');
         $states = Cache::get('states', StatesAndLgas::orderBy('state')->get()->unique('state'));
         return view('students.create')
-            ->withStates($states);
+            ->withStates($states)
+            ->withFaculties($faculties)->withLevels($levels)->withCourses($courses);
     }
     public function store(studentRequest $request)
     {
-        dd('here');
         $values = $request->validated();
         $student = (new Student)->fill($values)->save();
+        session()->flash('message', 'Succesfully added Student');
+        return back();
     }
     public function getStudent(Request $request)
     {

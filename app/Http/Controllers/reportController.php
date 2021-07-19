@@ -9,7 +9,7 @@ use App\Models\studentPayments;
 use App\QueryFilters\DebtorReports\orderBy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Cache;
 
 class reportController extends Controller
 {
@@ -18,9 +18,18 @@ class reportController extends Controller
         $table = "";
         $owingStudents = Student::getDebtors();
         $table = $this->generateTable($owingStudents, 'all', $request);
-        $faculties = DB::table('studentsnew')->select('faculty')->orderBy('faculty')->get()->unique();
-        $courses = DB::table('studentsnew')->where('faculty', $faculties[0]->faculty)->select('course')->get()->unique();
-        $levels = DB::table('studentsnew')->where('faculty', $faculties[0]->faculty)->where('course', $courses[0]->course)->select('level')->orderBy('level')->get()->unique();
+        $faculties = Cache::rememberForever('faculties',    function () {
+            return DB::table('studentsnew')->select('faculty')->orderBy('faculty')->get()->unique();
+        });
+        $courses = Cache::rememberForever('courses', function () {
+            return DB::table('studentsnew')->select(['course', 'faculty'])->get()->unique();
+        });
+        $courses = $courses->where('faculty', $faculties[0]->faculty);
+        $levels = Cache::rememberForever('levels',  function () {
+            return DB::table('studentsnew')->select('level')->orderBy('level')->get()->unique();
+        });
+
+
         return view('reports.view')
             ->withTable($table)
             ->withFaculties($faculties)
@@ -102,10 +111,11 @@ class reportController extends Controller
             ->where($feeType, '<', 99_999_999)
             ->orderBy('faculty')
             ->orderBy('course')
-            ->orderBy('level')
-            ->get();
+            ->orderBy('level')->get();
+        //    ->get();
         $table = $this->generateTable($debtors, $feeType, $request);
-        return view('reports.owingParticularFee')->withTable($table);
+        return view('reports.owingParticularFee')
+            ->withTable($table);
     }
     public function formatNumber($number)
     {
@@ -142,7 +152,7 @@ class reportController extends Controller
                     <td>" . $student->level . "</td>
                     <td>" . $student->course . "</td>
                     <td>" . $student->faculty . "</td>
-                    <td style='text-align:right;'>" . $this->formatNumber($student->fees) . "</td>";
+                    <td style='text-align:right;'>" . $this->formatNumber($student->$type) . "</td>";
                         $table .= $type == "all" ? "
                     <td style='text-align:right;'>" . $this->formatNumber($student->indexFee) . "</td>
                     <td style='text-align:right;'>" . $this->formatNumber($student->boardFee) . "</td>" : "";

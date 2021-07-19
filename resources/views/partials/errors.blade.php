@@ -1,9 +1,11 @@
 @if($errors->any())
 <div class="alert alert-danger">
     @foreach ($errors->all() as $error)
-    <strong>
-        <p>{{$error}}</p>
-    </strong>
+    <p style="color:white;">
+        <strong>
+            {{$error}}
+        </strong>
+    </p>
     @endforeach
 </div>
 @endif

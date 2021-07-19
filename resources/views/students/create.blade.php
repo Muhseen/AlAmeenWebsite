@@ -1,15 +1,9 @@
 @extends('layouts.soft')
 @section('content')
 <script src="{{asset('/js/students.js')}}" type="text/javascript" defer></script>
-<div class="container">
+<div class="card container">
     <form action="/Students" method="POST">
-        @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @foreach ($errors->all() as $error)
-            <p style="color:white;"> <strong>{{$error}}</strong></p>
-            @endforeach
-        </div>
-        @endif
+        @include('partials.errors')
         @csrf
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-12">
@@ -18,12 +12,11 @@
                     <input type="text" required name="regno" class="form-control">
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="col-lg-1 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Gender</label><br>
                     <div class="mt-2">
                         <input type="radio" name="gender" value="Male" class="form-radio">Male
-                        <input type="radio" name="gender" value="Female" class="form-radio">Female
                     </div>
                 </div>
             </div>
@@ -32,19 +25,19 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">First Name</label>
-                    <input type="text" required name="firstName" class="form-control">
+                    <input type="text" required name="FirstName" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Middle Name</label>
-                    <input type="text" name="middleName" class="form-control">
+                    <input type="text" name="MiddleName" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Last Name</label>
-                    <input type="text" required name="lastName" class="form-control">
+                    <input type="text" required name="LastName" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
@@ -122,11 +115,77 @@
                     <input type="text" name="parentoccupation" class="form-control"></div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <div class="form-group"><label for=""></label><input type="text" class="form-control"></div>
+                <div class="form-group">
+                    <label for="">Physical Challenge(if any)</label>
+                    <input type="text" name="PChallenge" value="NIL" class="form-control">
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="">Bloodgroup</label>
+                    <select name="bloodgroup" id="" class="form-select">
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B+</option>
+                        <option value="AB-">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="">Genotype</label>
+                    <select name="genotype" id="" class="form-select">
+                        <option value="AA">AA</option>
+                        <option value="AS">AS</option>
+                        <option value="AC">AC</option>
+                        <option value="SS">SS</option>
+                        <option value="SC">SC</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="">Faculty</label>
+                    <select name="faculty" id="" class="form-select">
+                        @foreach ($faculties as $faculty)
+                        <option value="{{$faculty->faculty}}">{{$faculty->faculty}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="">Course</label>
+                    <select name="course" id="" class="form-select">
+                        @foreach ($courses as $course)
+                        <option value="{{$course->course}}">{{$course->course}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label for="">Level</label>
+                    <select name="level" id="" class="form-select">
+                        @foreach ($levels as $level)
+                        <option value="{{$level->level}}">{{$level->level}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Register Student</button>
 </div>
-<button type="submit" class="btn btn-primary btn-lg">Register Student</button>
 </form>
 </div>
 

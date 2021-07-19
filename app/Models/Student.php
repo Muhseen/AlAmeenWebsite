@@ -13,6 +13,7 @@ class Student extends Model
     public $table = "studentsnew";
     public $primaryKey = "regno";
     public $timestamps   = false;
+    protected $guarded = [];
     public static function getDebtors()
     {
 
