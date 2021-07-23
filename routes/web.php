@@ -21,32 +21,34 @@ use App\Http\Controllers\StudentPaymentsController;
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return redirect('login');
 });
 
-Auth::routes();
-Route::get('/getLgas', function (Request $request) {
-    $lgas = StatesAndLgas::where('state', $request->stateId)->get();
-    return json_encode(['lgas' => $lgas]);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/getLgas', function (Request $request) {
+        $lgas = StatesAndLgas::where('state', $request->stateId)->get();
+        return json_encode(['lgas' => $lgas]);
+    });
+    Route::get('/dashboard', function () {
+        return redirect('home');
+    });
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    //programmes Controller;
+
+    Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
+    Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
+
+    //reports Controller
+    Route::view('/reports', 'reports.index');
+    Route::get('/reports/owing', [App\Http\Controllers\reportController::class, 'getOwingStudents']);
+    Route::get('/studentLedger', [reportController::class, 'studentLedger']);
+    Route::get('/reports/OwingParticularFee', [reportController::class, 'owingParticularFee']);
+    //Student Controller
+    Route::resource('/Students', StudentController::class);
+    Route::get('/getStudent', [StudentController::class, 'getStudent']);
+
+    //studentPaymentController
+    Route::resource('/studentPayments', StudentPaymentsController::class);
 });
-Route::get('/dashboard', function () {
-    return redirect('home');
-});
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//programmes Controller;
-
-Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
-Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
-
-//reports Controller
-Route::view('/reports', 'reports.index');
-Route::get('/reports/owing', [App\Http\Controllers\reportController::class, 'getOwingStudents']);
-Route::get('/studentLedger', [reportController::class, 'studentLedger']);
-Route::get('/reports/OwingParticularFee', [reportController::class, 'owingParticularFee']);
-//Student Controller
-Route::resource('/Students', StudentController::class);
-Route::get('/getStudent', [StudentController::class, 'getStudent']);
-
-//studentPaymentController
-Route::resource('/studentPayments', StudentPaymentsController::class);

@@ -55,7 +55,7 @@
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <div class="form-group">
                     <label for=""> State of Origin</label>
-                    <select name="state" class="form-select cboState">
+                    <select style="backgorund-color:#cb0c9f !important;" name="state" class="form-select cboState">
                         @foreach ($states as $state)
                         <option value="{{$state->state}}">{{$state->state}}</option>
                         @endforeach
