@@ -12,12 +12,19 @@
                     <input type="text" required name="regno" class="form-control">
                 </div>
             </div>
-            <div class="col-lg-1 col-md-6 col-sm-12">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Gender</label><br>
                     <div class="mt-2">
-                        <input type="radio" name="gender" value="Male" class="form-radio">Male
+                        <input type="radio" name="gender" value="Male" class="mr-2 form-radio">Male
+                        <input type="radio" name="gender" value="Male" class="ml-3 form-radio">Female
                     </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-check form-switch mt-4">
+                    <label for="" class="form-check-label">Is Affiliate</label>
+                    <input type="checkbox" name="isAffiliate" id="" class="form-check-input">
                 </div>
             </div>
         </div>
@@ -184,7 +191,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg">Register Student</button>
+        <button type="submit" class="btn btn-info btn-lg">Register Student</button>
 </div>
 </form>
 </div>

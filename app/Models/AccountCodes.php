@@ -9,4 +9,5 @@ class AccountCodes extends Model
 {
     use HasFactory;
     public $table = "accountcodes";
+    public $timestamps = false;
 }

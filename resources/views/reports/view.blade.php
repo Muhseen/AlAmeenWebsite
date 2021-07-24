@@ -35,7 +35,7 @@
                 </select>
             </div>
             <div class=" col-lg-1 mt-4 col-md-2 col-sm-6 col-xs-12">
-                <button type="submit" class="btn btn-success btn-sm">
+                <button type="submit" class="btn btn-info btn-sm">
                     Find Debtors
                 </button>
             </div>

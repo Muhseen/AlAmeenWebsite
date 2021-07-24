@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProgrammesController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\StudentPaymentsController;
+use App\Http\Controllers\AccountCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
         return redirect('home');
     });
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    //AccountCodes
+    Route::resource('/accountCodes', AccountCodeController::class);
     //programmes Controller;
 
     Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
@@ -46,6 +49,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/OwingParticularFee', [reportController::class, 'owingParticularFee']);
     Route::get('/reports/receiptsByName', [reportController::class, 'receiptsByName']);
     Route::get('/reports/receiptsByDateRange', [reportController::class, 'receiptsByDateRange']);
+    Route::get('/reports/receiptsByClass', [reportController::class, 'receiptsByClass']);
+    Route::get('/reports/receiptsByAccountCode', [reportController::class, 'receiptsByAccountCode']);
+    Route::get('/reports/receiptsPaidIntoAccount', [reportController::class, 'receiptsPaidIntoAccount']);
     //Student Controller
     Route::resource('/Students', StudentController::class);
     Route::get('/getStudent', [StudentController::class, 'getStudent']);

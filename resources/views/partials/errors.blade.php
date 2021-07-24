@@ -13,7 +13,7 @@
 
 <div class="alert alert-success">
     <strong>
-        <p>{{session('message')}}</p>
+        <p style="color:white;">{{session('message')}}</p>
     </strong>
 </div>
 @endif

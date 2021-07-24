@@ -11,6 +11,8 @@ use App\Services\Reports\tableGen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use App\Models\AccountCodes;
+use App\Models\BankAccounts;
 
 class reportController extends Controller
 {
@@ -26,11 +28,13 @@ class reportController extends Controller
         $this->levels = Cache::rememberForever('levels',  function () {
             return DB::table('studentsnew')->select('level')->orderBy('level')->get()->unique();
         });
+        $this->AccountCodes  = AccountCodes::where('code', 'like', '1%')->get();
+        $this->BankAccounts = BankAccounts::all();
     }
 
     public function getOwingStudents(Request $request)
     {
-        $owingStudents = Student::getDebtors();
+        $owingStudents = Student::getStudents(true);
         $table = tableGen::generateDebtorTable($owingStudents, 'all', $request);
         return view('reports.view')
             ->withTable($table)
@@ -69,13 +73,15 @@ class reportController extends Controller
         return view('reports.index')
             ->withFaculties($this->faculties)
             ->withCourses($this->courses)
-            ->withLevels($this->levels);
+            ->withLevels($this->levels)
+            ->withAccountCodes($this->AccountCodes)
+            ->withBankAccounts($this->BankAccounts);
     }
     public function receiptsByDateRange(Request $request)
     {
-        dd($request->startDate, $request->endDate);
         $receipts = studentPayments::whereBetween('Txndate', [$request->startDate, $request->endDate])->get();
         $table = tableGen::generateReceiptTable($receipts);
+        return view('reports.studentLedger')->withTable($table);
     }
     public function receiptsByName(Request $request)
     {
@@ -90,8 +96,26 @@ class reportController extends Controller
         }
         $receipts = $receipts->sortBy('Txndate');
         $table = tableGen::generateReceiptTable($receipts);
-        return view('reports.view')->withTable($table)->withFaculties($this->faculties)
-            ->withCourses($this->courses)
-            ->withLevels($this->levels);;
+        return view('reports.studentLedger')->withTable($table);
+    }
+    public function receiptsByClass(Request $request)
+    {
+        $regnos = Student::getStudents(false)->pluck('regno');
+        $studentPayments = studentPayments::whereIn('studentno', $regnos->toArray())->orderBy('StudentNo')->orderBy('Txndate')->get();
+        $table = tableGen::generateReceiptTable($studentPayments);
+        return view('reports.studentLedger')->withTable($table);
+    }
+    public function receiptsByAccountCode(Request $request)
+    {
+        $receipts = studentPayments::where('paycode', $request->code)->get();
+        $table = tableGen::generateReceiptTable($receipts);
+        return view('reports.studentLedger')->withTable($table);
+    }
+    public function receiptsPaidIntoAccount(Request $request)
+
+    {
+        $receipts = studentPayments::where('Bank', $request->paidTo)->get();
+        $table = tableGen::generateReceiptTable($receipts);
+        return view('reports.studentLedger')->withTable($table);
     }
 }

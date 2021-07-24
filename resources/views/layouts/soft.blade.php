@@ -123,10 +123,54 @@
                             <span class="nav-link-text ms-1">RTL</span>
                         </a>
                     </li>-->
+
                     <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
-                            Account pages
-                        </h6>
+                        <h4 class="ps-4 ms-2 text-uppercase text-sm font-weight-bolder opacity-9">
+                            Admin Features
+                        </h4>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/reports">
+                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                            </div>
+                            <span class="nav-link-text ms-1">Set Scholarship</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/reports">
+                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                            </div>
+                            <span class="nav-link-text ms-1">Set Fees</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/accountCodes">
+                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                            </div>
+                            <span class="nav-link-text ms-1">Account Codes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-3">
+                        <h4 class="ps-4 ms-2 text-uppercase text-sm font-weight-bolder opacity-9">
+                            <strong>
+                                Account pages
+                            </strong>
+                        </h4>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/accountCodes">
+                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                            </div>
+                            <span class="nav-link-text ms-1">Account Codes</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  " href="../pages/profile.html">
@@ -160,7 +204,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  " href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                                                        document.getElementById('logout-form').submit();">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1"

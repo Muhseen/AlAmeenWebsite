@@ -17,7 +17,7 @@
                             <p class="card-text">List of Students that are owing any fee(grouped by their classes)</p>
                         </div>
                         <div class="card-footer">
-                            <a href="/reports/owing" class="btn btn-primary"> View All</a>
+                            <a href="/reports/owing" class="btn btn-info"> View All</a>
                         </div>
                     </div>
                 </div>
@@ -36,22 +36,9 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary"> Get List</button>
+                                <button type="submit" class="btn btn-info"> Get List</button>
                             </div>
                         </form>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a
-                                natural lead-in
-                                to
-                                additional
-                                content.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -75,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Process</button>
+                                <button type="submit" class="btn btn-info">Process</button>
                             </div>
                         </form>
                     </div>
@@ -92,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary"> <i class="fa fa-search"
+                                <button type="submit" class="btn btn-info"> <i class="fa fa-search"
                                         aria-hidden="true">Searc h</i></button>
                             </div>
                         </form>
@@ -100,7 +87,7 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <form action="/reports/receiptsByName" method="GET">
+                        <form action="/reports/receiptsByClass" method="GET">
                             <div class="card-body">
                                 <h5 class="card-title">Receipts by Faculty, Course, Level</h5>
                                 <div class="row">
@@ -134,8 +121,79 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary"> <i class="fa fa-search"
+                                <button type="submit" class="btn btn-info"> <i class="fa fa-search"
                                         aria-hidden="true">Searc h</i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/receiptsByAccountCode" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Receipts for An Account Code(Particular reason)</h5>
+                                <div class="row">
+                                    <div class="form-group"><label for="">Account Code(Payment Reason)</label>
+                                        <select name="code" id="" class="form-select">
+                                            @foreach ($accountCodes as $ac)
+                                            <option value="{{$ac->Code}}">{{$ac->Description}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-info">Process</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/receiptsPaidIntoAccount" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Receipts Paid into Account</h5>
+                                <p class="card-text">Receipts paid into a particular account</p>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for=""></label>
+                                        <select name="paidTo" id="cboBank" class="form-select">
+                                            @foreach ($bankAccounts as $ba)
+                                            <option value="{{$ba->bankname}}">{{$ba->bankname}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-info">Process</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h3 class="card-title ml-5 my-2">Payment Reports</h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/paymentsByDateRange" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Payments made Beteen Date Range</h5>
+                                <p class="card-text">Payments made Between Start Date and End Date</p>
+                                <div class="row">
+                                    <div class="form-group"><label for="">Start Date</label><input type="date"
+                                            name="startDate" id="" class="form-control"></div>
+                                    <div class="form-group"><label for="">End Date</label><input type="date"
+                                            name="endDate" id="" class="form-control"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-info">Process</button>
                             </div>
                         </form>
                     </div>

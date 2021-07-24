@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary w-100">
+                        <button class="btn btn-info w-100">
                             Add Student Now
                         </button>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary w-100">
+                    <button class="btn btn-info w-100">
                         Click
                     </button>
                 </div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary w-100">
+                    <button class="btn btn-info w-100">
                         Click
                     </button>
                 </div>
@@ -74,7 +74,7 @@
                         </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-primary w-100 ">
+                    <button class="btn btn-info w-100 ">
                         Click
                     </button>
                     </form>

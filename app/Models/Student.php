@@ -11,20 +11,26 @@ class Student extends Model
 {
     use HasFactory;
     public $table = "studentsnew";
+    public $incrementing = false;
     public $primaryKey = "regno";
     public $timestamps   = false;
     protected $guarded = [];
-    public static function getDebtors()
+    public static function getStudents($withOwing)
     {
-
+        $criteria = [
+            \App\QueryFilters\DebtorReports\Faculty::class,
+            \App\QueryFilters\DebtorReports\Course::class,
+            \App\QueryFilters\DebtorReports\Level::class,
+        ];
+        if ($withOwing) {
+            array_push(
+                $criteria,
+                \App\QueryFilters\DebtorReports\Owing::class
+            );
+        }
         return app(Pipeline::class)
             ->send(Student::query())
-            ->through([
-                \App\QueryFilters\DebtorReports\Owing::class,
-                \App\QueryFilters\DebtorReports\Faculty::class,
-                \App\QueryFilters\DebtorReports\Course::class,
-                \App\QueryFilters\DebtorReports\Level::class,
-            ])->thenReturn()->orderBy('level', 'asc')->orderBy('course')->get();
+            ->through($criteria)->thenReturn()->orderBy('level', 'asc')->orderBy('course')->get();
     }
     public function ARL()
     {

@@ -1,0 +1,19 @@
+/* Error: Top-level selectors may not contain the parent selector "&".
+ *    ,
+ * 15 |   &.bg-gradient-faded-#{$prop}-vertical{
+ *    |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   soft-ui-dashboard\_gradients.scss 15:3  @import
+ *   soft-ui-dashboard\theme.scss 42:9       @import
+ *   soft-ui-dashboard.scss 27:9             root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: 'Error: Top-level selectors may not contain the parent selector "&".\a    \2577 \a 15 \2502    &.bg-gradient-faded-#{$prop}-vertical{\a    \2502    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   soft-ui-dashboard\\_gradients.scss 15:3  @import\a   soft-ui-dashboard\\theme.scss 42:9       @import\a   soft-ui-dashboard.scss 27:9             root stylesheet';
+}

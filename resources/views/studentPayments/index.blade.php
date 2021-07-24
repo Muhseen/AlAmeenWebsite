@@ -66,8 +66,8 @@
 
                 </div>
                 <div class="btn-group btn-group-sm col-lg-4 col-md-4">
-                    <button class="btn btn-primary">Process Payment</button>
-                    <button class="btn btn-warning"> Cancel</button>
+                    <button class="btn btn-info">Process Payment</button>
+                    <button class="btn btn-danger"> Cancel</button>
                 </div>
             </div>
 

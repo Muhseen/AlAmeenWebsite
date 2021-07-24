@@ -22,7 +22,9 @@ class StudentController extends Controller
         $states = Cache::get('states', StatesAndLgas::orderBy('state')->get()->unique('state'));
         return view('students.create')
             ->withStates($states)
-            ->withFaculties($faculties)->withLevels($levels)->withCourses($courses);
+            ->withFaculties($faculties)
+            ->withLevels($levels)
+            ->withCourses($courses);
     }
     public function store(studentRequest $request)
     {
