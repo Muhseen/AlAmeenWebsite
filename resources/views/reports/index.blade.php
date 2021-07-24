@@ -1,105 +1,146 @@
 @extends('layouts.soft')
 @section('content')
 <style>
-    .smallcard {
-        background-color: gray !important;
+    .card {
+        border: darkslategrey 0.1mm solid !important;
     }
 </style>
 <div class="container">
-    <div class="row mb-3">
-        <div class="card-header">
-            <h3> Student Reports</h3>
-
-            <div class="row ">
-                <div class="col-3 h-100 mr-3">
-                    <div class="card">
-                        <div class="card-text">Owing Students</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-text">List of Students That Are owing fees group by classes</h5>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h3 class="card-title ml-5 my-2">Student reports</h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Owing Students</h5>
+                            <p class="card-text">List of Students that are owing any fee(grouped by their classes)</p>
                         </div>
                         <div class="card-footer">
-                            <a href="/reports/owing" class="btn btn-primary">View All</a>
+                            <a href="/reports/owing" class="btn btn-primary"> View All</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-3 h-100">
-                    <form action="/reports/OwingParticularFee" method="GET"></form>
-                    <div class="card">
-                        <div class="card card-header">
-                            <p>List of Students That Are owing a particular fee </p>
-                        </div>
-                        <div class="card card-body">
-                            <div class="form-group"><label>Fee Type</label>
-                                <select class="form-select" name="feeType" id="">
-                                    <option value="fees">Fees</option>
-                                    <option value="indexFees">Index Fees</option>
-                                    <option value="boardFees">Board Fees</option>
-                                </select>
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/owingParticularFee" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Students Owing a particular fee</h5>
+                                <div class="form-group">
+                                    <label for="">Fee Type</label>
+                                    <select name="" id="" class="form-select">
+                                        <option value="fees">Fees</option>
+                                        <option value="indexFees">Index Fees</option>
+                                        <option value="boardFees">Board Fees</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card card-footer"><button type="submit" class="btn btn-primary">View
-                                Debtors</button>
-                        </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary"> Get List</button>
+                            </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="card card-body">
-            <h2>Receipt Reports</h2>
-
-            <div class="row" height="100px">
-                <div class=" mr-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 card h-100">
-                    <h5 class="card-title text-center   ">
-                        Receipts Issued Between(Date Range)
-                    </h5>
-                    <div class="card-body text-center">
-                        <p>List of Students That Are owing fees group by classes</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="/reports/owing" class="btn btn-primary">View All</a>
-                    </div>
-
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 card h-100">
-                    <form action="/reports/OwingParticularFee" method="GET">
-                        <div class=" card-body">
-                            <h5 class="card-title">List of Students That Are owing a particular fee </h5>
-                            <div class="form-group"><label>Fee Type</label>
-                                <select class="form-select" name="feeType" id="">
-                                    <option value="fees">Fees</option>
-                                    <option value="indexFee">Index Fees</option>
-                                    <option value="boardFee">Board Fees</option>
-                                </select>
-                            </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a
+                                natural lead-in
+                                to
+                                additional
+                                content.</p>
                         </div>
-                        <div class="card card-footer">
-                            <button type="submit" class="btn btn-primary">
-                                View
-                                Debtors
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="card">
-        <div class="card-header">
-            Better Version
-        </div>
         <div class="card-body">
-            <div class="row">
-                <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
-                <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
-                <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
-                <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
+            <h3 class="card-title ml-5 my-2">Receipt reports</h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/receiptsByDateRange" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Receipts Issued Beteen Date Range</h5>
+                                <p class="card-text">Receipts Between Start Date and End Date</p>
+                                <div class="row">
+                                    <div class="form-group"><label for="">Start Date</label><input type="date"
+                                            name="startDate" id="" class="form-control"></div>
+                                    <div class="form-group"><label for="">End Date</label><input type="date"
+                                            name="endDate" id="" class="form-control"></div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Process</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/receiptsByName" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Search for Receipts Containing a name</h5>
+                                <div class="form-group">
+
+                                    <label for="">Name</label>
+                                    <input type="text" name="name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary"> <i class="fa fa-search"
+                                        aria-hidden="true">Searc h</i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <form action="/reports/receiptsByName" method="GET">
+                            <div class="card-body">
+                                <h5 class="card-title">Receipts by Faculty, Course, Level</h5>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="">Faculty</label>
+                                        <select name="faculty" id="" class="form-select">
+                                            @foreach ($faculties as $faculty)
+                                            <option value="{{$faculty->faculty}}">{{$faculty->faculty}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="">Faculty</label>
+                                        <select name="course" id="cboCourse" class="form-select">
+                                            @foreach ($faculties as $faculty)
+
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="">Faculty</label>
+                                        <select name="level" id="cboLevel" class="form-select">
+                                            <option value="100">100</option>
+                                            <option value="200">200</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary"> <i class="fa fa-search"
+                                        aria-hidden="true">Searc h</i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="card-footer">
-            Sample Footer
         </div>
     </div>
 </div>

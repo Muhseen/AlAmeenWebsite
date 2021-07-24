@@ -9,7 +9,6 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProgrammesController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\StudentPaymentsController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,10 +40,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
 
     //reports Controller
-    Route::view('/reports', 'reports.index');
-    Route::get('/reports/owing', [App\Http\Controllers\reportController::class, 'getOwingStudents']);
+    Route::get('/reports', [reportController::class, 'index']);
+    Route::get('/reports/owing', [reportController::class, 'getOwingStudents']);
     Route::get('/studentLedger', [reportController::class, 'studentLedger']);
     Route::get('/reports/OwingParticularFee', [reportController::class, 'owingParticularFee']);
+    Route::get('/reports/receiptsByName', [reportController::class, 'receiptsByName']);
+    Route::get('/reports/receiptsByDateRange', [reportController::class, 'receiptsByDateRange']);
     //Student Controller
     Route::resource('/Students', StudentController::class);
     Route::get('/getStudent', [StudentController::class, 'getStudent']);

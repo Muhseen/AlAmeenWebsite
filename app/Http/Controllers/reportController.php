@@ -7,100 +7,44 @@ use App\Models\Student;
 use App\Models\studentledger;
 use App\Models\studentPayments;
 use App\QueryFilters\DebtorReports\orderBy;
+use App\Services\Reports\tableGen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 
 class reportController extends Controller
 {
-    public function getOwingStudents(Request $request)
+    public function __construct()
     {
-        $table = "";
-        $owingStudents = Student::getDebtors();
-        $table = $this->generateTable($owingStudents, 'all', $request);
-        $faculties = Cache::rememberForever('faculties',    function () {
+        $this->faculties = Cache::rememberForever('faculties',    function () {
             return DB::table('studentsnew')->select('faculty')->orderBy('faculty')->get()->unique();
         });
-        $courses = Cache::rememberForever('courses', function () {
+        $this->courses = Cache::rememberForever('courses', function () {
             return DB::table('studentsnew')->select(['course', 'faculty'])->get()->unique();
         });
-        $courses = $courses->where('faculty', $faculties[0]->faculty);
-        $levels = Cache::rememberForever('levels',  function () {
+        $this->courses = $this->courses->where('faculty', $this->faculties[0]->faculty);
+        $this->levels = Cache::rememberForever('levels',  function () {
             return DB::table('studentsnew')->select('level')->orderBy('level')->get()->unique();
         });
+    }
 
-
+    public function getOwingStudents(Request $request)
+    {
+        $owingStudents = Student::getDebtors();
+        $table = tableGen::generateDebtorTable($owingStudents, 'all', $request);
         return view('reports.view')
             ->withTable($table)
-            ->withFaculties($faculties)
-            ->withCourses($courses)
-            ->withLevels($levels);
+            ->withFaculties($this->faculties)
+            ->withCourses($this->courses)
+            ->withLevels($this->levels);
     }
     public function studentLedger(Request $request)
     {
-        $totalPayments = 0;
-        $totalCharges = 0;
-
         $payments = studentPayments::where('studentno', $request->regno)->get();
         $charges = AccountsReceivableLogs::where('studentno', $request->regno)->get();
         $student = Student::find($request->regno);
         $report = collect();
-        $counter = 0;
-        foreach ($payments as $p) {
-            $totalPayments += $p->Amount;
-            $counter++;
-            $rRow = new studentledger();
-            $rRow->txndate = $p->Txndate;
-            $rRow->StudentNo = $p->StudentNo;
-            $rRow->Studentname = $p->Payer;
-            $rRow->Description = $p->Description;
-            $rRow->amountcr = $p->Amount;
-            $rRow->amountdb = 0;
-            $report->put($counter, $rRow);
-        }
-        foreach ($charges as $c) {
-            $totalCharges += $c->amount;
-            $counter++;
-            $rRow = new studentledger();
-            $rRow->txndate = $c->txndate;
-            $rRow->StudentNo = $c->StudentNo;
-            $rRow->Studentname = $c->Payee;
-            $rRow->Description = $c->Description;
-            $rRow->amountcr = 0;
-            $rRow->amountdb = $c->amount;
-            $report->put($counter, $rRow);
-        }
-        $report = $report->sortBy('txndate');
-        $balance = 0;
-        $table = " <div class='card  text-center card-header'>
-           <b> Name: $student->fullname<br>
-            Faculty: $student->faculty    
-            , Course: $student->course    
-            , Level: $student->level <br>
-            Student Ledger
-            </b>    
-        </div>
-        <table class= 'table table-responsive table-striped table-dark table-bordered'>
-        <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Charges</th>
-            <th>Payments</th>
-            <th>Balance(To be paid)</th>
-        </tr>";
-        foreach ($report as $r) {
-            $balance += $r->amountcr == 0 ? $r->amountdb : (-1) * $r->amountcr;
-            $table .= "<tr>
-             <td>" . ($r->txndate ?? "NIL") . "</td> 
-             <td>" . $r->Description . "</td> 
-             <td  style='text-align:right;'>" . $this->formatNumber($r->amountdb) . "</td> 
-             <td style='text-align:right;'>" . $this->formatNumber($r->amountcr) . "</td> 
-             <td style='text-align:right;'>   " . $this->formatNumber($balance) . "</td> 
-             </tr>";
-        }
-        $table .= "<tr> <td colspan='2' style='text-align:right;'>Total </td><td>" . $this->formatNumber($totalCharges) . "</td><td>" . $this->formatNumber($totalPayments) . "</td><td>" . $this->formatNumber($totalCharges - $totalPayments) . "</td></tr>";
-        $table .= "<tr> <td colspan='4' style='text-align:right;'>Outstanding Balance</td><td>" . $this->formatNumber($totalCharges - $totalPayments) . "</td></tr>";
-        $table .= "</table>";
+        $table = tableGen::generateStudentLedger($student, $report, $charges, $payments);
         return view('reports.studentLedger')
             ->withTable($table);
     }
@@ -112,8 +56,7 @@ class reportController extends Controller
             ->orderBy('faculty')
             ->orderBy('course')
             ->orderBy('level')->get();
-        //    ->get();
-        $table = $this->generateTable($debtors, $feeType, $request);
+        $table = tableGen::generateDebtorTable($debtors, $feeType, $request);
         return view('reports.owingParticularFee')
             ->withTable($table);
     }
@@ -121,48 +64,34 @@ class reportController extends Controller
     {
         return number_format($number, 2, ".", ",");
     }
-    public function generateTable($students, $type, $request)
+    public function index()
     {
-        $table = "";
-        $facultyStudents = $students->groupby('PresentSection');
-        foreach ($facultyStudents as $fgroup) {
-
-            $table .= "<table class='table mb-5 table-responsive table-bordered table-dark table-stripped table-hover'>";
-            $courseGroup = $fgroup->groupby('Arm');
-            foreach ($courseGroup as $cp) {
-                $levelGroup = $cp->groupby('class');
-                foreach ($levelGroup as $lg) {
-                    if ($request->has('faculty')) {
-                        $table .= "<tr><th class='text-center' colspan='7'>" . $lg->first()->faculty . " " . $lg->first()->course . "-" . $lg->first()->level . "</th></tr>";
-                    }
-                    $table .= "<tr>
-                        <th>Name</th>
-                        <th>Level</th>
-                        <th>Course</th>
-                        <th>Faculty</th>
-                        <th>";
-                    $table .= $type == "all" ? "Outstanding Fees" : $type . "</th>";
-                    $table .= $type == "all" ? "<th>Outstanding Index Fee</th>
-                        <th>Outstanding Board Fee</th>" : "";
-                    $table .= "</tr>";
-                    foreach ($lg as $student) {
-                        $name = $student->MiddleName == "" ? $student->FirstName . " " . $student->LastName : $student->FirstName . " " . $student->MiddleName . " " . $student->LastName;
-                        $table .= "<tr>
-                    <td>    $name   </td>
-                    <td>" . $student->level . "</td>
-                    <td>" . $student->course . "</td>
-                    <td>" . $student->faculty . "</td>
-                    <td style='text-align:right;'>" . $this->formatNumber($student->$type) . "</td>";
-                        $table .= $type == "all" ? "
-                    <td style='text-align:right;'>" . $this->formatNumber($student->indexFee) . "</td>
-                    <td style='text-align:right;'>" . $this->formatNumber($student->boardFee) . "</td>" : "";
-
-                        $table .= "</tr>";
-                    }
-                }
-            }
-            $table .= "</table>";
+        return view('reports.index')
+            ->withFaculties($this->faculties)
+            ->withCourses($this->courses)
+            ->withLevels($this->levels);
+    }
+    public function receiptsByDateRange(Request $request)
+    {
+        dd($request->startDate, $request->endDate);
+        $receipts = studentPayments::whereBetween('Txndate', [$request->startDate, $request->endDate])->get();
+        $table = tableGen::generateReceiptTable($receipts);
+    }
+    public function receiptsByName(Request $request)
+    {
+        $name = $request->name;
+        $names = explode(" ", $name);
+        if (count($names) == 1) {
+            $receipts = studentPayments::where('Payer', 'like', '%' . $names[0] . '%')->get();
+        } else if (count($names) == 2) {
+            $receipts = studentPayments::where('Payer', 'like', '%' . $names[0] . '%')->Where('Payer', 'like', '%' . $names[1] . '%')->get();
+        } else if (count($names) == 3) {
+            $receipts = studentPayments::where('Payer', 'like', '%' . $names[0] . '%')->Where('Payer', 'like', '%' . $names[1] . '%')->Where('Payer', 'like', '%' . $names[2] . '%')->get();
         }
-        return $table;
+        $receipts = $receipts->sortBy('Txndate');
+        $table = tableGen::generateReceiptTable($receipts);
+        return view('reports.view')->withTable($table)->withFaculties($this->faculties)
+            ->withCourses($this->courses)
+            ->withLevels($this->levels);;
     }
 }
