@@ -10,21 +10,23 @@
             Al Ameen College of Health Science and Technology
         </title>
         <!--     Fonts and icons     -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
         <!-- Nucleo Icons 
         <link href="{{asset("")}}../assets/css/nucleo-icons.css" rel="stylesheet" />
         <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
          Font Awesome Icons -->
-        <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+        <!--<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
         <link href="{{asset("assets/css/nucleo-svg.css")}} rel=" stylesheet" />
         <!-- CSS Files -->
         <link id="pagestyle" href="{{asset("assets/css\soft-ui-dashboard.min.css")}}" rel="stylesheet" />
+        <script src="../assets/js/jquery-3.4.1.min.js"></script>
     </head>
 
     <body class="g-sidenav-show  bg-gray-100">
         @auth()
 
-        <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+        <aside
+            class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
             id="sidenav-main">
             <div class="sidenav-header ">
                 <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -39,7 +41,7 @@
             <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link  active" href="../pages/dashboard.html">
+                        <a class="nav-link  active" href="/dashboard">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -79,7 +81,7 @@
                             <div style="background-image: url('/assets/img/finances.png'); background-size:contain;"
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             </div>
-                            <span class="nav-link-text ms-1">Payments
+                            <span class="nav-link-text ms-1">Make Payment
 
                             </span>
                         </a>
@@ -131,7 +133,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  " href="/reports">
-                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
+                            <div style="background-image: url('/assets/img/scholarship.png'); background-size:contain;"
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 
                             </div>
@@ -139,8 +141,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  " href="/reports">
-                            <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"
+                        <a class="nav-link  " href="/setFees">
+                            <div style="background-image: url('/assets/img/setFees.png'); background-size:contain;"
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 
                             </div>
@@ -297,15 +299,13 @@
                 @yield('content')
             </div>
         </main>
-        <!--   <script src="../assets/js/core/popper.min.js"></script>
+        <script src="../assets/js/core/popper.min.js"></script>
         <script src="../assets/js/core/bootstrap.min.js"></script>
         <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
         <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
         <script src="../assets/js/plugins/chartjs.min.js"></script>
-        <script src="../assets/js/jquery-3.4.1.min.js"></script>
-        <script>
+        <!-- <script>
             var ctx = document.getElementById("chart-bars").getContext("2d");
-            
             new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -494,7 +494,7 @@
                 }
             });
         </script>
-    -->
+
         <script>
             var win = navigator.platform.indexOf("Win") > -1;
             if (win && document.querySelector("#sidenav-scrollbar")) {
@@ -508,7 +508,7 @@
             }
         </script>
         <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
     </body>

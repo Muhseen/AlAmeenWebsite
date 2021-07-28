@@ -8,7 +8,7 @@ use App\Models\Student;
 use App\Models\studentPayments;
 use Illuminate\Http\Request;
 use Symfony\Component\Routing\Matcher\ExpressionLanguageProvider;
-use Illuminate\Support\Facade\DB;
+use Illuminate\Support\Facades\DB;
 
 class StudentPaymentsController extends Controller
 {
@@ -51,8 +51,8 @@ class StudentPaymentsController extends Controller
             $student->fees -= $request->Amount;
             $student->save();
             session()->flash('message', 'Payment Successful, Generat Receipt');
-            return back();
             DB::commit();
+            return back();
         } catch (Exception $e) {
             DB::rollback();
         }

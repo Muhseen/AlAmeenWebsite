@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\studentPayments;
+use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $date = Carbon::now();
+        $today = studentPayments::whereBetween('txndate', [$date->startOfDay()->toDateTimeString(), $date->endOfDay()->toDateTimeString()])->sum('amount');
+        $thisweek = studentPayments::whereBetween('txndate', [$date->startOfWeek()->toDateTimeString(), $date->endOfWeek()->toDateTimeString()])->sum('amount');
+        $thisMonth = studentPayments::whereBetween('txndate', ['2021-07-01', '2021-07-31'])->sum('amount'); //
+        $count = Student::where('status', 1)->count();
+        return view('home')
+            ->withToday($today)
+            ->withTomorrow($thisweek)->withThisMonth($thisMonth)->withStudentCount($count);
+    }
+    public function formatNumber($number)
+    {
+        return "&#8358 " . number_format($number, 2, ".", ",");
     }
 }

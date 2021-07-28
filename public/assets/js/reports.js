@@ -9,6 +9,7 @@ $("#cboFaculty").on("change", function() {
         data: { faculty: faculty },
         dataType: "JSON",
         success: function(response) {
+            console.log({ response });
             let courses = response.courses;
             let levels = response.level;
             for (i = 0; i < courses.length; i++) {

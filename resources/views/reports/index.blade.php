@@ -23,15 +23,15 @@
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <form action="/reports/owingParticularFee" method="GET">
+                        <form action="/reports/OwingParticularFee" method="GET">
                             <div class="card-body">
                                 <h5 class="card-title">Students Owing a particular fee</h5>
                                 <div class="form-group">
                                     <label for="">Fee Type</label>
-                                    <select name="" id="" class="form-select">
+                                    <select name="type" id="" class="form-select">
                                         <option value="fees">Fees</option>
-                                        <option value="indexFees">Index Fees</option>
-                                        <option value="boardFees">Board Fees</option>
+                                        <option value="indexFee">Index Fees</option>
+                                        <option value="boardFee">Board Fees</option>
                                     </select>
                                 </div>
                             </div>

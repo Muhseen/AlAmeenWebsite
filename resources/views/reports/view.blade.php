@@ -1,6 +1,6 @@
 @extends('layouts.soft')
 @section('content')
-<script src="{{asset('/assets/js/reports.js')}}" type="text/javascript" defer></script>
+<script src="{{asset('/assets/js/facultyCalls.js')}}" type="text/javascript" defer></script>
 <div class="container">
     <form method="GET" action="/reports/owing">
         <div class="row d-print-none">

@@ -10,6 +10,9 @@ use App\Http\Controllers\ProgrammesController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\StudentPaymentsController;
 use App\Http\Controllers\AccountCodeController;
+use App\Http\Controllers\apiCalls;
+use App\Http\Controllers\SetFeesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,10 +55,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reports/receiptsByClass', [reportController::class, 'receiptsByClass']);
     Route::get('/reports/receiptsByAccountCode', [reportController::class, 'receiptsByAccountCode']);
     Route::get('/reports/receiptsPaidIntoAccount', [reportController::class, 'receiptsPaidIntoAccount']);
+    //Set Fees Controller
+    Route::get('/setFees', [SetFeesController::class, 'index']);
+    Route::get('/setParticularClass', [SetFeesController::class, 'particularClass']);
+    Route::get('/setParticularStudent', [SetFeesController::class, 'particularStudent']);
+    Route::get('/setAll', [SetFeesController::class, 'allStudents']);
+
     //Student Controller
     Route::resource('/Students', StudentController::class);
     Route::get('/getStudent', [StudentController::class, 'getStudent']);
 
     //studentPaymentController
     Route::resource('/studentPayments', StudentPaymentsController::class);
+
+    //faculty, course and level calls
+    Route::get('/getCourses', [apiCalls::class, 'getCourses']);
+    Route::get('/getLevels', [apiCalls::class, 'getLevels']);
 });

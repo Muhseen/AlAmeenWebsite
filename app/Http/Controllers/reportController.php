@@ -54,6 +54,7 @@ class reportController extends Controller
     }
     public function owingParticularFee(Request $request)
     {
+        return back();
         $feeType = $request->feeType;
         $debtors = Student::where($feeType, '>', 0)
             ->where($feeType, '<', 99_999_999)

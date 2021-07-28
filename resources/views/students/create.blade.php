@@ -1,6 +1,6 @@
 @extends('layouts.soft')
 @section('content')
-<script src="{{asset('/js/students.js')}}" type="text/javascript" defer></script>
+<script src="{{asset('/js/studentCalls.js')}}" type="text/javascript" defer></script>
 <div class="card container">
     <form action="/Students" method="POST">
         @include('partials.errors')
