@@ -38,7 +38,7 @@ class tableGen
                     <td>" . $student->level . "</td>
                     <td>" . $student->course . "</td>
                     <td>" . $student->faculty . "</td>
-                    <td style='text-align:right;'>" . $formatter->formatNumber($student->$type) . "</td>";
+                    <td style='text-align:right;'>" . $formatter->formatNumber($type == "all" ? $student->fees : $student->$type) . "</td>";
                         $table .= $type == "all" ? "
                     <td style='text-align:right;'>" . $formatter->formatNumber($student->indexFee) . "</td>
                     <td style='text-align:right;'>" . $formatter->formatNumber($student->boardFee) . "</td>" : "";

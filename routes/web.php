@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/setFees', [SetFeesController::class, 'index']);
     Route::get('/setParticularClass', [SetFeesController::class, 'particularClass']);
     Route::get('/setParticularStudent', [SetFeesController::class, 'particularStudent']);
-    Route::get('/setAll', [SetFeesController::class, 'allStudents']);
+    Route::get('/setFeesForAll', [SetFeesController::class, 'allStudents']);
 
     //Student Controller
     Route::resource('/Students', StudentController::class);

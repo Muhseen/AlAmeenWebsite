@@ -9,22 +9,25 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Registration Number</label>
-                    <input type="text" required name="regno" class="form-control">
+                    <input type="text" required name="regno" value="{{old('regno')}}" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Gender</label><br>
                     <div class="mt-2">
-                        <input type="radio" name="gender" value="Male" class="mr-2 form-radio">Male
-                        <input type="radio" name="gender" value="Male" class="ml-3 form-radio">Female
+                        <input type="radio" name="gender" value="Male" class="mr-2 form-radio"
+                            {{old('gender')=='Male'?"selected":""}}>Male
+                        <input type="radio" name="gender" value="Male" class="ml-3 form-radio"
+                            {{old('gender')=='Female'?"selected":""}}>Female
                     </div>
                 </div>
             </div>
             <div class="col-3">
                 <div class="form-check form-switch mt-4">
                     <label for="" class="form-check-label">Is Affiliate</label>
-                    <input type="checkbox" name="isAffiliate" id="" class="form-check-input">
+                    <input type="checkbox" name="isAffiliate" id="" value="{{old('isAffiliate')}}"
+                        class="form-check-input">
                 </div>
             </div>
         </div>
@@ -32,31 +35,31 @@
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">First Name</label>
-                    <input type="text" required name="FirstName" class="form-control">
+                    <input type="text" value="{{old('FirstName')}}" required name="FirstName" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Middle Name</label>
-                    <input type="text" name="MiddleName" class="form-control">
+                    <input type="text" name="MiddleName" value="{{old('MiddleName')}}" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group">
                     <label for="">Last Name</label>
-                    <input type="text" required name="LastName" class="form-control">
+                    <input type="text" required name="LastName" value="{{old('LastName')}}" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form-group"><label for="">Common Name(Alias)</label>
-                    <input type="text" name="alias" class="form-control">
+                    <input type="text" name="alias" value="{{old('alias')}}" class="form-control">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <div class="form-group"><label for="">Date of Birth</label>
-                    <input type="date" required class="form-control">
+                    <input type="date" name="DOB" value="{{old('DOB')}}" required class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12">

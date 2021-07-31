@@ -123,6 +123,38 @@ class SetFeesController extends Controller
     }
     public function allStudents(Request $request)
     {
+        $amount = $request->amount;
+        $code = explode(":", $request->code)[0];
+        $desc = explode(':', $request->code)[1];
+        $students = Student::where('status', 1)->get();
+        foreach ($students as $student) {
+            $this->makeARL([
+                'amount' => $amount,
+                'txndate' => now(),
+                'StudentName' => $student->fullname,
+                'studentno' => $student->regno,
+                'Description' => $desc,
+                'category' => 'INC',
+                'categoryid' => $code
+            ]);
+            $this->makeTransaction([
+                'txndate' => now(),
+                'payee' => $student->fullname,
+                'description' => $desc,
+                'accountcode' => $code,
+                'amountdr' => 0,
+                'amountcr' => $amount,
+                'receiptno' => ''
+            ]);
+            if (Str::contains($desc, 'Board Fee')) {
+                $student->boardFee += $amount;
+            } else if (Str::contains($desc, 'Index Fee')) {
+                $student->indexFee += $amount;
+            } else {
+                $student->fees += $amount;
+            }
+            $student->save();
+        }
     }
     public function makeARL($parameters)
     {

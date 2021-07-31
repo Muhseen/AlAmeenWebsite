@@ -27,13 +27,26 @@ class HomeController extends Controller
     public function index()
     {
         $date = Carbon::now();
-        $today = studentPayments::whereBetween('txndate', [$date->startOfDay()->toDateTimeString(), $date->endOfDay()->toDateTimeString()])->sum('amount');
-        $thisweek = studentPayments::whereBetween('txndate', [$date->startOfWeek()->toDateTimeString(), $date->endOfWeek()->toDateTimeString()])->sum('amount');
-        $thisMonth = studentPayments::whereBetween('txndate', ['2021-07-01', '2021-07-31'])->sum('amount'); //
+        $today = $this->formatNumber(studentPayments::whereBetween('txndate', [$date->startOfDay()->toDateTimeString(), $date->endOfDay()->toDateTimeString()])->sum('amount'));
+        $thisweek = $this->formatNumber(studentPayments::whereBetween('txndate', [$date->startOfWeek()->toDateTimeString(), $date->endOfWeek()->toDateTimeString()])->sum('amount'));
+        $thisMonth = $this->formatNumber(studentPayments::whereBetween('txndate', ['2021-07-01', '2021-07-31'])->sum('amount')); //
         $count = Student::where('status', 1)->count();
         return view('home')
             ->withToday($today)
-            ->withTomorrow($thisweek)->withThisMonth($thisMonth)->withStudentCount($count);
+            ->withTomorrow($thisweek)
+            ->withThisMonth($thisMonth)
+            ->withStudentCount($count)
+            ->withMonths([
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ]);
     }
     public function formatNumber($number)
     {

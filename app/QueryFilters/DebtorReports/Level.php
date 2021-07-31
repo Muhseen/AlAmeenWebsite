@@ -8,10 +8,10 @@ class Level
 {
     public function handle($query, Closure $next)
     {
-        if (request()->has('Faculty') && request()->level != "all") {
+        if (request()->has('level') && request()->level != "all") {
             $builder = $next($query);
-            return $builder->where('class', request()->Level);
+            return $builder->where('level', request()->level);
         }
-        return $next($query);
+        // return $next($query);
     }
 }
