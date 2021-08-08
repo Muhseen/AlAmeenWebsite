@@ -34,7 +34,7 @@ class Student extends Model
     }
     public function ARL()
     {
-        return $this->hasOne(
+        return $this->hasMany(
             AccountsReceivablelogs::class,
             'studentno',
             'regno'

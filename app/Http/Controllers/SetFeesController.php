@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\setFeeRequest;
 use Exception;
 use App\Models\Student;
 use App\Models\Transaction;
@@ -34,7 +35,7 @@ class SetFeesController extends Controller
             ->withFaculties($this->faculties)
             ->withAccountCodes($this->AccountCodes);
     }
-    public function particularStudent(Request $request)
+    public function particularStudent(setFeeRequest $request)
     {
         $desc = explode(":", $request->code)[1];
         $code = explode(":", $request->code)[0];
@@ -77,7 +78,7 @@ class SetFeesController extends Controller
             DB::rollBack();
         }
     }
-    public function particularClass(Request $request)
+    public function particularClass(setFeeRequest $request)
     {
         $desc = explode(":", $request->code)[1];
         $code = explode(":", $request->code)[0];
@@ -121,7 +122,7 @@ class SetFeesController extends Controller
             DB::rollBack();
         }
     }
-    public function allStudents(Request $request)
+    public function allStudents(setFeeRequest $request)
     {
         $amount = $request->amount;
         $code = explode(":", $request->code)[0];

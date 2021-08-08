@@ -67,28 +67,28 @@
                     <label for=""> State of Origin</label>
                     <select style="backgorund-color:#cb0c9f !important;" name="state" class="form-select cboState">
                         @foreach ($states as $state)
-                        <option value="{{$state->state}}">{{$state->state}}</option>
+                        <option value="{{$state->state}}" >{{$state->state}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <div class="form-group"><label for=""> Local Government</label>
-                    <select name="lga" class="form-select cboLga">
+                    <select name="lga" class="form-select cboLga" value="{{old('lga')}}">
                     </select>
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <div class="form-group">
                     <label for="">Admission Date</label>
-                    <input type="date" class="form-control">
+                    <input type="date" name="admissiondate" value="{{old('admissiondate')}}" class="form-control">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 form-group">
                 <label for="">Street Address</label>
-                <textarea type="text" name="StreetAddress" class="form-control">
+                <textarea type="text" name="StreetAddress" value="{{old('StreetAddress')}}"class="form-control">
                 </textarea>
             </div>
 
@@ -110,24 +110,24 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="">Parent/guardian Name</label>
-                    <input type="text" name="parentname" class="form-control">
+                    <input type="text" name="parentname" value = "{{old('parentname')}}" class="form-control">
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="">Parent Contact</label>
-                    <input type="text" class="form-control" name="parentcontact">
+                    <input type="text" class="form-control" name="parentcontact" value="{{old('parentcontact')}}">
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="">Parent's Occupation</label>
-                    <input type="text" name="parentoccupation" class="form-control"></div>
+                    <input type="text" name="parentoccupation" value="{{old('parentoccupation')}}" class="form-control"></div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="">Physical Challenge(if any)</label>
-                    <input type="text" name="PChallenge" value="NIL" class="form-control">
+                    <input type="text" name="PChallenge" value="{{old('PChallenge')}}" class="form-control">
                 </div>
             </div>
         </div>

@@ -51,7 +51,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="">Amount</label>
-                                <input name="amount" type="text" class="form-control">
+                                <input name="amount" type="number" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="">Amount</label>
-                                <input name="amount" value="0" type="text" class="form-control">
+                                <input name="amount" value="0" type="number" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="">Amount</label>
-                                <input name="amount" value="0" type="text" class="form-control">
+                                <input name="amount" placeholder="0" type="number" class="form-control">
                             </div>
                         </div>
                     </div>
