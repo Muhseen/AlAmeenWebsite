@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\scholarshipStudent;
+use App\Models\studentScholarship;
 use Illuminate\Http\Request;
 
-class ScholarshipStudentController extends Controller
+class studentScholarshipController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class ScholarshipStudentController extends Controller
      */
     public function index()
     {
-        //
+        $sStudent = studentScholarship::all();
+        return  view('scholarship.index')
+        ->withSStudents($sStudent);
     }
 
     /**
@@ -24,7 +26,7 @@ class ScholarshipStudentController extends Controller
      */
     public function create()
     {
-        //
+    return view('scholarship.create');
     }
 
     /**
@@ -41,10 +43,10 @@ class ScholarshipStudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\scholarshipStudent  $scholarshipStudent
+     * @param  \App\Models\studentScholarship  $studentScholarship
      * @return \Illuminate\Http\Response
      */
-    public function show(scholarshipStudent $scholarshipStudent)
+    public function show(studentScholarship $studentScholarship)
     {
         //
     }
@@ -52,10 +54,10 @@ class ScholarshipStudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\scholarshipStudent  $scholarshipStudent
+     * @param  \App\Models\studentScholarship  $studentScholarship
      * @return \Illuminate\Http\Response
      */
-    public function edit(scholarshipStudent $scholarshipStudent)
+    public function edit(studentScholarship $studentScholarship)
     {
         //
     }
@@ -64,10 +66,10 @@ class ScholarshipStudentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\scholarshipStudent  $scholarshipStudent
+     * @param  \App\Models\studentScholarship  $studentScholarship
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, scholarshipStudent $scholarshipStudent)
+    public function update(Request $request, studentScholarship $studentScholarship)
     {
         //
     }
@@ -75,10 +77,10 @@ class ScholarshipStudentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\scholarshipStudent  $scholarshipStudent
+     * @param  \App\Models\studentScholarship  $studentScholarship
      * @return \Illuminate\Http\Response
      */
-    public function destroy(scholarshipStudent $scholarshipStudent)
+    public function destroy(studentScholarship $studentScholarship)
     {
         //
     }

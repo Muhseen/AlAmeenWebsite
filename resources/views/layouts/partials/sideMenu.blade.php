@@ -48,6 +48,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link  " href="/Applicants">
+                    <div style="background-image: url('/assets/img/student.png'); background-size:contain"
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    </div>
+                  <span class="nav-link-text ms-1">Applicants</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link  " href="/studentPayments">
                     <div style="background-image: url('/assets/img/finances.png'); background-size:contain;"
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -103,7 +111,7 @@
                 </h4>
             </li>
             <li class="nav-item">
-                <a class="nav-link  " href="/reports">
+                <a class="nav-link  " href="/studentScholarship">
                     <div style="background-image: url('/assets/img/scholarship.png'); background-size:contain;"
                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 

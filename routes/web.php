@@ -11,7 +11,9 @@ use App\Http\Controllers\reportController;
 use App\Http\Controllers\StudentPaymentsController;
 use App\Http\Controllers\AccountCodeController;
 use App\Http\Controllers\apiCalls;
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\SetFeesController;
+use App\Http\Controllers\studentScholarshipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     //AccountCodes
     Route::resource('/accountCodes', AccountCodeController::class);
+   
+   //Applicants Controller
+   Route::resource('Applicants', ApplicantController::class);
+   
     //programmes Controller;
 
     Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
@@ -68,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
     //studentPaymentController
     Route::resource('/studentPayments', StudentPaymentsController::class);
 
+    Route::resource('/studentScholarship', studentScholarshipController::class);
     //faculty, course and level calls
     Route::get('/getCourses', [apiCalls::class, 'getCourses']);
     Route::get('/getLevels', [apiCalls::class, 'getLevels']);
