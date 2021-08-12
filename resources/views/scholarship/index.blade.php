@@ -1,7 +1,7 @@
 @extends('layouts.soft')
 @section('content')
     <div class="container">
-        <div class="d-print-none row">
+        <!--<div class="d-print-none row">
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3">
                 <a href="{{route('studentScholarship.create')}}">
                     <div class="card">
@@ -18,7 +18,8 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3">
-                <a  href="/viewScholarshipList"><div class="card">
+                <a  href="/viewScholarshipList">
+                    <div class="card h-100">
                     <div class="h6 card-title card-header">
                         View Scholarship Students
                     </div>
@@ -34,8 +35,15 @@
            </div>
     
     
+        </div>-->
+        <div class="row">
+            <div class="col">
+                <a href="/studentScholarship/create" class="btn btn-info">
+                Give Scholarship to Student
+                </a>
+            </div>
         </div>
-        @if ($sStudents->count() >0)
+        @if ($schoStudents->count() >0)
             <div class="row">
                 <h3 class="text-center">
                     List of Students with Scholarships
@@ -52,16 +60,38 @@
                 <th>Amount</th></tr>
         @endif
         <div class="row">
-           @foreach ($sStudents as $sStudent)
+           @foreach ($schoStudents as $sStudent)
               <tr>
-                  <td>{{$sStudent->student->regno}}</td>
+                  <td>{{$sStudent->regno}}</td>
                   <td>{{$sStudent->student->fullname}}</td>
                   <td>{{$sStudent->student->faculty}}</td>
                   <td>{{$sStudent->student->course}}</td>
                   <td>{{$sStudent->student->level}}</td>
                   <td>{{$sStudent->type}}</td>
                   <td>{{$sStudent->amount??0}}</td>
-                </tr> 
+                    @can('update-scholarship')
+                    <td>
+                        <form action="/studentScholarship/{{$sStudent->regno}}/edit" method="GET">
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit">
+                                <i class="fas fa-trash    "></i>
+                                DELETE
+                            </button>
+                            </form>
+                    </td>
+                    @endcan
+                    @can('delete-scholarship')
+                    <td> 
+                        <form action="/studentScholarship/{{$sStudent->regno}}" method="POST">
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">
+                            <i class="fas fa-trash    "></i>
+                            DELETE
+                        </button>
+                        </form>
+                    </td>
+                    @endcan
+</tr> 
            @endforeach 
         </table>
         </div>

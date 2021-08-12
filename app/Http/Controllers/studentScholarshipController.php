@@ -16,28 +16,27 @@ class studentScholarshipController extends Controller
     {
         $sStudent = studentScholarship::all();
         return  view('scholarship.index')
-        ->withSStudents($sStudent);
+        ->withSchoStudents($sStudent);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
     return view('scholarship.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $attr = $request->validate([
+            'regno'=>'required|unique:discount,regno', 
+            'type' =>'required', 
+            ], ['regno.unique'=>'This Student has already been offered scholarship']);
+        $attr["amount"] = $attr["type"]=="Partial"?$request->amount:0;
+        $attr["addedBy"] = auth()->user()->email;
+        studentScholarship::create($attr);
+        session()->flash('message', 'Succesfully added student to Scholarship list');
+        return back();
+
     }
 
     /**

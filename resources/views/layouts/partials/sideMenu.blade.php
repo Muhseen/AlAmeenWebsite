@@ -55,6 +55,12 @@
                   <span class="nav-link-text ms-1">Applicants</span>
                 </a>
             </li>
+            <li class="nav-item mt-3">
+                <h4 class="ps-4 ms-2 text-uppercase text-sm font-weight-bolder opacity-9">
+                    FInances
+                </h4>
+            </li>
+            
             <li class="nav-item">
                 <a class="nav-link  " href="/studentPayments">
                     <div style="background-image: url('/assets/img/finances.png'); background-size:contain;"
@@ -65,6 +71,18 @@
                     </span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link  " href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div style="background-image: url('/assets/img/finances.png'); background-size:contain;"
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    </div>
+                   
+                    <span class="nav-link-text ms-1">Validate Receipt
+
+                    </span>
+                </a>
+            </li>
+            
             <li class="nav-item">
                 <a class="nav-link  " href="/reports">
                     <div style="background-image: url('/assets/img/reports.png'); background-size:contain;"

@@ -9,8 +9,10 @@ class studentScholarship extends Model
 {
     use HasFactory;
     public $table ="discount"; 
+    public $guarded = [];
+    
     public function student()
     {
-        return $this->belongsTo(Student::class, 'studentno', 'regno');
+        return $this->belongsTo(Student::class, 'regno', 'regno');
     }
 }

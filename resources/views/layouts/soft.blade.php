@@ -79,6 +79,34 @@
             </nav>
             <!-- End Navbar -->
             <div class="container py-2">
+                <div class="modal" id="exampleModal" tabindex="-1">
+                    <script src="{{asset('assets/js/validateReceipt.js')}}" type="text/javascript"> </script>
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Enter Receipt number</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="alert alert-dismissible  alert-secondary d-none" id="myReceiptModalAlert" >
+                            <strong></strong>
+                        </div>
+                        <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Receipt No</label>
+                            <input type="text" id="modalReceiptNo" name = "receiptNo" class="form-control">
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" onclick="validateReceipt()" class="btn btn-info" >Validate</button>
+                          <button type="button" class="btn btn-danger" onclick="removeDetails()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Close
+                          </button>
+                       
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+                @include('partials.errors')
                 @yield('content')
             </div>
         </main>
@@ -256,7 +284,7 @@
                         x: {
                             grid: {
                                 drawBorder: false,
-                                display: false,
+                                display:mo false,
                                 drawOnChartArea: false,
                                 drawTicks: false,
                                 borderDash: [5, 5]

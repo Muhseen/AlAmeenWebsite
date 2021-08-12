@@ -12,8 +12,10 @@ use App\Http\Controllers\StudentPaymentsController;
 use App\Http\Controllers\AccountCodeController;
 use App\Http\Controllers\apiCalls;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\reprintController;
 use App\Http\Controllers\SetFeesController;
 use App\Http\Controllers\studentScholarshipController;
+use App\Http\Controllers\validationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,4 +80,11 @@ Route::middleware(['auth'])->group(function () {
     //faculty, course and level calls
     Route::get('/getCourses', [apiCalls::class, 'getCourses']);
     Route::get('/getLevels', [apiCalls::class, 'getLevels']);
+
+
+    Route::get('/reprint/{id}', [reprintController::class, 'reprintReceipt'] );
+    //validate Receipt
+    Route::get('/validateReceiptView', [validationController::class, 'validateReceiptView']);
+    Route::GET('/validateReceipt', [validationController::class, 'validateReceipt']);
+
 });
