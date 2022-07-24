@@ -17,8 +17,8 @@ class CreateProgrammesTable extends Migration
             $table->id();
             $table->string('faculty');
             $table->string('course');
-            $table->string('startLevel');
-            $table->string('finishLevel');
+            $table->integer('startLevel');
+            $table->integer('finishLevel');
             $table->timestamps();
         });
     }

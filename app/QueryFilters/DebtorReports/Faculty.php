@@ -12,7 +12,6 @@ class Faculty
             $builder = $next($query);
             return ($builder->where('faculty', request()->faculty));
         }
-        dd($next($query));
         return $next($query);
     }
 }

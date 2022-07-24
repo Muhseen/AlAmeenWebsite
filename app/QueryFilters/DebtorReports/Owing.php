@@ -10,7 +10,7 @@ class Owing
     {
         $builder = $next($query);
         return $builder->where(function ($query) {
-            $query->where('fees', '>', 0)->where('fees', '<', 99_999_999)->orWhere(
+            $query->where('fees', '>', 0)->where('fees', '<', 99999999)->orWhere(
                 function ($query2) {
                     $query2->where('indexFee', '>', 0)->orWhere('boardFee', '>', 0);
                 }

@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AccountCodes;
-use App\Models\BankAccounts;
-use App\Models\Student;
 use App\Models\studentPayments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\BankAccounts;
+use App\Models\Student;
+use App\Models\AccountCodes;
 
-class StudentPaymentsController extends Controller
+class ApplicantPaymentsController extends Controller
 {
+
     public function __construct()
     {
         $this->validationRule = [
             'TxnDate' => 'required',
-            'ReceiptNo' => 'required|unique:rvtxnlog',
+            'ReceiptNo' => 'required|unique:applicantpayments',
             'StudentNO' => 'required',
             'Bank' => 'required',
             'Section' => 'required',
@@ -23,16 +24,14 @@ class StudentPaymentsController extends Controller
             'Description' => 'required',
             'TellerNo', 'PayCode',
             'Amount' => 'required',
-            'Category' => 'required',
-            'captured_by' => 'required'
-
+            'Category' => 'required'
         ];
     }
     public function index()
     {
         $bankAccounts = BankAccounts::all();
         $accountCodes = AccountCodes::where('code', 'like', '1%')->get();
-        return view('studentPayments.index')
+        return view('applicantPayments.index')
             ->withAccountCodes($accountCodes)
             ->withBankAccounts($bankAccounts);
     }
@@ -46,7 +45,8 @@ class StudentPaymentsController extends Controller
                 return back()->withErrors("Invalid Regno Provided");
             }
             $desc = explode(":",  $request->code);
-            $request->merge(['captured_by' => auth()->user()->email, 'Category' => $desc[0], 'Section' => $student->faculty, 'Payer' => $student->fullname, 'Description' => $desc[1], 'Code' => $desc[0]]);
+            $request->merge(['Category' => $desc[0], 'Section' => $student->faculty, 'Payer' => $student->fullname, 'Description' => $desc[1], 'Code' => $desc[0]]);
+
             $attr = $request->validate($this->validationRule);
             studentPayments::create($attr);
             $student->fees -= $request->Amount;
@@ -54,21 +54,8 @@ class StudentPaymentsController extends Controller
             session()->flash('message', 'Payment Successful, Generat Receipt');
             DB::commit();
             return back();
-        } catch (\Exception $e) {
-            //dd($e);
-            return back()->withErrors($e);
+        } catch (Exception $e) {
             DB::rollback();
         }
-    }
-    public function deleteReceipt(Request $request)
-
-    {
-        $payment = studentPayments::where('ReceiptNo', $request->receiptNo)->first();
-        $student = Student::where('regno', $payment->StudentNO)->first();
-        $student->fees += $payment->Amount;
-        $student->save();
-        DB::delete('delete from rvtxnlog where id = ?',  [$payment->Id]);
-        session()->flash('message', 'Succesfully deleted Receipt and Reversed The Transaction');
-        return back();
     }
 }

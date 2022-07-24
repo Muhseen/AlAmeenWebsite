@@ -1,6 +1,7 @@
 <?php
 
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
+
 use App\Models\StatesAndLgas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -12,10 +13,13 @@ use App\Http\Controllers\StudentPaymentsController;
 use App\Http\Controllers\AccountCodeController;
 use App\Http\Controllers\apiCalls;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ApplicantPaymentsController;
 use App\Http\Controllers\reprintController;
 use App\Http\Controllers\SetFeesController;
 use App\Http\Controllers\studentScholarshipController;
 use App\Http\Controllers\validationController;
+use App\Models\AccountsReceivableLogs;
+use App\Http\Controllers\PromotionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +39,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/getLgas', function (Request $request) {
-        $lgas = StatesAndLgas::where('state', $request->stateId)->get();
+        $lgas = StatesAndLgas::where('state', $request->state)->get();
         return json_encode(['lgas' => $lgas]);
     });
     Route::get('/dashboard', function () {
@@ -44,16 +48,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     //AccountCodes
     Route::resource('/accountCodes', AccountCodeController::class);
-   
-   //Applicants Controller
-   Route::resource('Applicants', ApplicantController::class);
-   
+
+    //Applicants Controller
+    Route::resource('/Applicants', ApplicantController::class);
+
+    Route::get('/delAcc', function (Request $request) {
+        $red = $request->server("HTTP_REFERER");
+        $acc = AccountsReceivableLogs::where('id', $request->id)->firstOrFail();
+        $acc->delete();
+        return redirect($red);
+    });
     //programmes Controller;
+    Route::resource('/programmes', ProgrammesController::class);
 
-    Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
-    Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
+    //promotions controller
+    Route::get('/processPromotions', [PromotionsController::class, 'index']);
+    Route::post('/processPromotions', [PromotionsController::class, 'processPromotions']);
 
-    //reports Controller
+    //Route::get('/getCourses', [ProgrammesController::class, 'getCourses']);
+    //Route::get('/getLevels', [ProgrammesController::class, 'getLevels']);
+    Route::resource('/applicantPayments', ApplicantPaymentsController::class);
+    //reports Controller0
     Route::get('/reports', [reportController::class, 'index']);
     Route::get('/reports/owing', [reportController::class, 'getOwingStudents']);
     Route::get('/studentLedger', [reportController::class, 'studentLedger']);
@@ -80,11 +95,14 @@ Route::middleware(['auth'])->group(function () {
     //faculty, course and level calls
     Route::get('/getCourses', [apiCalls::class, 'getCourses']);
     Route::get('/getLevels', [apiCalls::class, 'getLevels']);
+    Route::get('/getChartData', [apiCalls::class, 'getChart']);
 
 
-    Route::get('/reprint/{id}', [reprintController::class, 'reprintReceipt'] );
+    Route::get('/reprint/{id}', [reprintController::class, 'reprintReceipt']);
     //validate Receipt
     Route::get('/validateReceiptView', [validationController::class, 'validateReceiptView']);
     Route::GET('/validateReceipt', [validationController::class, 'validateReceipt']);
+    Route::get('/deleteReceipt', [StudentPaymentsController::class, 'deleteReceipt']);
 
+    Route::get("/studentEdit", [StudentController::class, 'edit']);
 });

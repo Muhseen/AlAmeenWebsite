@@ -13,10 +13,10 @@ class CreateApplicantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('applicants', function (Blueprint $table) {
+        /*  Schema::create('applicants', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -26,6 +26,6 @@ class CreateApplicantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants');
+        //*Schema::dropIfExists('applicants');
     }
 }

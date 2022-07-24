@@ -10,7 +10,7 @@ use App\Models\AccountsReceivableLogs;
 class Student extends Model
 {
     use HasFactory;
-    public $table = "studentsnew";
+    public $table = "students";
     public $incrementing = false;
     public $primaryKey = "regno";
     public $timestamps   = false;

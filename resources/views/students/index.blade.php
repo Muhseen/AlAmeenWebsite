@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3">
             <a href="{{route('Students.create')}}">
-                <div class="card">
+                <div class="card h-100">
                     <div class="h6 card-title card-header">
                         Add New Student
                     </div>
@@ -23,7 +23,7 @@
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3">
-            <div class="card">
+            <div class="card h-100">
                 <div class="h6 card-title card-header">
                     Edit Student Record
                 </div>
@@ -33,14 +33,19 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-info w-100">
-                        Click
+                <form action="/studentEdit" method="GET"> 
+                <div class="form-group"><label for=""></label>
+                    <input placeholder = "Enter Regno here.. "type="text" name ="regno"required class="form-control"></div>
+                    <button class="btn btn-info w-100" type="submit">
+                        Edit Details
                     </button>
+                </form>
+
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-title h6 card-header">
                     View Student List
                 </div>
@@ -56,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3  h-100 col-md-4 col-sm-6 col-xs-12 mb-3">
+        <div class="col-lg-3   col-md-4 col-sm-6 col-xs-12 mb-3">
             <div class="card h-100">
                 <div class="card-title h6 card-header">
                     View Student Ledger

@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class ApplicantPayments extends Model
 {
-    public $timestamps = false;
-    public $guarded = [];
     use HasFactory;
+    public $table = "applicantpayments";
+    public $timestamps = false;
+    public $primaryKey = 'Id';
 }

@@ -12,6 +12,6 @@ class Level
             $builder = $next($query);
             return $builder->where('level', request()->level);
         }
-        // return $next($query);
+        return $next($query);
     }
 }

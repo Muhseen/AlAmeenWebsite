@@ -21,14 +21,10 @@ class ProgrammesController extends Controller
 
         return Student::where('faculty', $request->faculty)->where('course', $request->course)->select('class')->unique->get();
     }
-    /** 
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $progs = programmes::orderBy('faculty')->orderBy('course')->get();
+        return view('programmes.index')->withProgs($progs);
     }
 
     /**
@@ -38,7 +34,7 @@ class ProgrammesController extends Controller
      */
     public function create()
     {
-        //
+        return view('programmes.create');
     }
 
     /**
@@ -49,7 +45,9 @@ class ProgrammesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attr =   $request->validate(['startLevel' => 'required', 'finishLevel' => 'required', 'faculty' => 'required', 'course' => 'required']);
+        programmes::create($attr);
+        return redirect('/programmes');
     }
 
     /**
@@ -69,9 +67,13 @@ class ProgrammesController extends Controller
      * @param  \App\Models\programmes  $programmes
      * @return \Illuminate\Http\Response
      */
-    public function edit(programmes $programmes)
+    public function edit($id, programmes $programmes)
     {
-        //
+        $prog = programmes::find($id);
+
+        return view(
+            'programmes.edit'
+        )->withProg($prog);
     }
 
     /**
@@ -81,9 +83,12 @@ class ProgrammesController extends Controller
      * @param  \App\Models\programmes  $programmes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, programmes $programmes)
+    public function update($id, Request $request, programmes $programmes)
     {
-        //
+        $attr =   $request->validate(['startLevel' => 'required', 'finishLevel' => 'required', 'faculty' => 'required', 'course' => 'required']);
+        $prog = programmes::find($id);
+        $prog->update($attr);
+        return redirect('/programmes');
     }
 
     /**

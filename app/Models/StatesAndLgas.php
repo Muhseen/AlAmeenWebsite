@@ -9,4 +9,6 @@ class StatesAndLgas extends Model
 {
     use HasFactory;
     public $table = "statesandlgas";
+    public $timestamps =false;
+    
 }

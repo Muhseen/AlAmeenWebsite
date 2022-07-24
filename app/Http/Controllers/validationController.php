@@ -11,11 +11,9 @@ class validationController extends Controller
     {
 
         $studentPayment = studentPayments::where('receiptno', $request->receiptNo)->first();
-        if($studentPayment!=null)
-        {
+        if ($studentPayment != null) {
             return $studentPayment;
-        }
-        else{
+        } else {
             return "not found";
         }
         /*$studentPayment = studentPayments::where('receiptNo', $request->receiptNo)->first();
@@ -31,5 +29,4 @@ class validationController extends Controller
             return back();
         }*/
     }
-
 }

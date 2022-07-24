@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use App\Models\AccountCodes;
 use App\Models\BankAccounts;
+use Carbon\Carbon;
 
 class reportController extends Controller
 {
@@ -54,10 +55,9 @@ class reportController extends Controller
     }
     public function owingParticularFee(Request $request)
     {
-        return back();
-        $feeType = $request->feeType;
+        $feeType = $request->type;
         $debtors = Student::where($feeType, '>', 0)
-            ->where($feeType, '<', 99_999_999)
+            ->where($feeType, '<', 99999999)
             ->orderBy('faculty')
             ->orderBy('course')
             ->orderBy('level')->get();
@@ -80,9 +80,33 @@ class reportController extends Controller
     }
     public function receiptsByDateRange(Request $request)
     {
-        $receipts = studentPayments::whereBetween('Txndate', [$request->startDate, $request->endDate])->get();
-        $table = tableGen::generateReceiptTable($receipts);
-        return view('reports.studentLedger')->withTable($table);
+        $receipts = null;
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        if ($request->has('dashboard')) {
+            $date =  Carbon::now();
+            $date2 = Carbon::now();
+            if ($request->type == "day") {
+                $startDate = $date->startOfDay();
+                $endDate = $date2->endOfDay();
+            } else if ($request->type == "week") {
+                $startDate = $date->startOfWeek();
+                $endDate = $date2->endOfWeek();
+            } else if ($request->type == "month") {
+                $startDate = $date->startOfMonth();
+                $endDate = $date2->endOfMonth();
+            }
+            $startDate = $startDate->format("Y-m-d");
+            $endDate = $endDate->format("Y-m-d");
+        }
+        if ($startDate != null && $endDate != null) {
+            $receipts = studentPayments::whereBetween('TxnDate', [$startDate, $endDate])->get();
+            $header = "Payments made between $startDate and $endDate";
+            $table = tableGen::generateReceiptTable($receipts, $header);
+            return view('reports.studentLedger')->withTable($table);
+        } else {
+            return back()->withErrors("Unspecified date Range");
+        }
     }
     public function receiptsByName(Request $request)
     {
@@ -102,21 +126,27 @@ class reportController extends Controller
     public function receiptsByClass(Request $request)
     {
         $regnos = Student::getStudents(false)->pluck('regno');
-        $studentPayments = studentPayments::whereIn('studentno', $regnos->toArray())->orderBy('StudentNo')->orderBy('Txndate')->get();
-        $table = tableGen::generateReceiptTable($studentPayments);
+        $studentPayments = studentPayments::whereIn('studentno', $regnos->toArray())
+            ->orderBy('StudentNo')
+            ->orderBy('Txndate')
+            ->get();
+        //$header = "Payments made between $startDate and $endDate";
+        $table = tableGen::generateReceiptTable($studentPayments, "");
         return view('reports.studentLedger')->withTable($table);
     }
     public function receiptsByAccountCode(Request $request)
     {
+        $header = "Payments made for Account Code " . $request->code;
         $receipts = studentPayments::where('paycode', $request->code)->get();
-        $table = tableGen::generateReceiptTable($receipts);
+        $table = tableGen::generateReceiptTable($receipts, $header);
         return view('reports.studentLedger')->withTable($table);
     }
     public function receiptsPaidIntoAccount(Request $request)
 
     {
+        $header = "Payments Made in to $request->paidTo";
         $receipts = studentPayments::where('Bank', $request->paidTo)->get();
-        $table = tableGen::generateReceiptTable($receipts);
+        $table = tableGen::generateReceiptTable($receipts, $header);
         return view('reports.studentLedger')->withTable($table);
     }
 }
